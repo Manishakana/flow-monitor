@@ -2,7 +2,7 @@
 
 ## Scope
 
-SignalGuard is a local network-visibility prototype. It collects connection metadata and local-network discovery observations; packet payload collection is intentionally not implemented.
+Flow Monitor is a local network-visibility prototype. It collects connection metadata and local-network discovery observations; packet payload collection is intentionally not implemented.
 
 ## Reporting a vulnerability
 

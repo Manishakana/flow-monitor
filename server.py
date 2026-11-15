@@ -1,4 +1,4 @@
-"""SignalGuard local server: dashboard plus modular read-only telemetry APIs."""
+"""Flow Monitor local server: dashboard plus modular read-only telemetry APIs."""
 from __future__ import annotations
 
 import json
@@ -7,11 +7,11 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 
-from signalguard.storage import Repository
-from signalguard.telemetry import LocalTelemetryCollector
+from flow_monitor.storage import Repository
+from flow_monitor.telemetry import LocalTelemetryCollector
 
 ROOT = Path(__file__).parent
-repository = Repository(ROOT / "signalguard.db")
+repository = Repository(ROOT / "flow_monitor.db")
 collector = LocalTelemetryCollector(repository)
 
 SCOPE = {
@@ -81,5 +81,5 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    print("SignalGuard: http://127.0.0.1:4173")
+    print("Flow Monitor: http://127.0.0.1:4173")
     ThreadingHTTPServer(("127.0.0.1", 4173), Handler).serve_forever()

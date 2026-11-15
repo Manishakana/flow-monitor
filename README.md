@@ -1,6 +1,6 @@
-# SignalGuard
+# Flow Monitor
 
-SignalGuard is a privacy-first network visibility dashboard for understanding local host activity and devices discovered in an authorized private LAN.
+Flow Monitor is a privacy-first network visibility dashboard for understanding local host activity and devices discovered in an authorized private LAN.
 
 It presents live connection metadata, throughput, device inventory, and local-network insights without installing an agent on every endpoint.
 
@@ -30,7 +30,7 @@ Open `http://127.0.0.1:4173`.
 ## Project structure
 
 ```text
-signalguard/
+flow_monitor/
   discovery.py      # Passive ARP and bounded private-LAN discovery
   storage.py        # SQLite device and connection history
   telemetry.py      # Local host telemetry collector
@@ -46,7 +46,7 @@ docs/ARCHITECTURE.md
 - Binds to `127.0.0.1` only.
 - Stores metadata, not packet payloads.
 - Active discovery is restricted to the detected private `/24` LAN and is rate-limited to once per minute.
-- `signalguard.db` and runtime logs are excluded from Git because they can contain private network metadata.
+- `flow_monitor.db` and runtime logs are excluded from Git because they can contain private network metadata.
 
 ## Roadmap
 

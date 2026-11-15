@@ -1,5 +1,5 @@
 [project]
-name = "signalguard"
+name = "flow-monitor"
 version = "0.1.0"
 description = "Privacy-first local network visibility dashboard"
 readme = "README.md"

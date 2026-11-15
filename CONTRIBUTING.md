@@ -1,4 +1,4 @@
-# Contributing to SignalGuard
+# Contributing to Flow Monitor
 
 ## Development setup
 
@@ -11,5 +11,5 @@
 
 - Preserve metadata-only collection by default; do not add payload capture without explicit privacy and retention controls.
 - Keep active discovery bounded to an explicitly authorized private network scope.
-- Never commit `signalguard.db`, logs, personal IP addresses, MAC addresses, or screenshots containing real telemetry.
-- Add or update verification for backend changes and run `python -m py_compile server.py signalguard/*.py` plus `node --check app.js` before opening a pull request.
+- Never commit `flow_monitor.db`, logs, personal IP addresses, MAC addresses, or screenshots containing real telemetry.
+- Add or update verification for backend changes and run `python -m py_compile server.py flow_monitor/*.py` plus `node --check app.js` before opening a pull request.

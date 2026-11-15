@@ -5,9 +5,14 @@ __pycache__/
 venv/
 
 # Local telemetry and runtime logs (can contain private network metadata)
+flow_monitor.db
+# Legacy local database from earlier builds
 signalguard.db
 *.log
 *.err.log
+
+# Locally captured UI images
+screenshots/
 
 # Editor and operating-system files
 .vscode/
