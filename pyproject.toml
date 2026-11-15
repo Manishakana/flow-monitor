@@ -1,0 +1,10 @@
+[project]
+name = "signalguard"
+version = "0.1.0"
+description = "Privacy-first local network visibility dashboard"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["psutil>=5.9,<8"]
+
+[tool.ruff]
+line-length = 120

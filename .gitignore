@@ -1,0 +1,16 @@
+# Python runtime
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local telemetry and runtime logs (can contain private network metadata)
+signalguard.db
+*.log
+*.err.log
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
