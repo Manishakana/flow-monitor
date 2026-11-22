@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import mimetypes
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -35,6 +36,31 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header("Content-Length", str(len(payload)))
         self.end_headers()
         self.wfile.write(payload)
+
+    def end_headers(self) -> None:
+        """Keep the local dashboard private and prevent content-type guessing."""
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; base-uri 'none'; frame-ancestors 'none'",
+        )
+        super().end_headers()
+
+    def _static_file(self, relative_path: str) -> None:
+        """Serve only dashboard assets; never expose source, databases, or logs."""
+        path = ROOT / relative_path
+        if not path.is_file():
+            self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
+            return
+        content = path.read_bytes()
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", mimetypes.guess_type(path.name)[0] or "application/octet-stream")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(content)))
+        self.end_headers()
+        self.wfile.write(content)
 
     @staticmethod
     def _limit(values: dict[str, list[str]]) -> int:
@@ -77,7 +103,17 @@ class Handler(SimpleHTTPRequestHandler):
         if request.path == "/api/scope":
             self._json(SCOPE)
             return
-        super().do_GET()
+        static_assets = {
+            "/": "index.html",
+            "/index.html": "index.html",
+            "/styles.css": "styles.css",
+            "/overrides.css": "overrides.css",
+            "/app.js": "app.js",
+        }
+        if request.path in static_assets:
+            self._static_file(static_assets[request.path])
+            return
+        self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
 
 
 if __name__ == "__main__":

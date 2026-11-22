@@ -27,6 +27,15 @@ python -B server.py
 
 Open `http://127.0.0.1:4173`.
 
+## Verification
+
+Run the local automated checks before committing changes:
+
+```powershell
+python -m unittest discover -s tests -v
+node --check app.js
+```
+
 ## Project structure
 
 ```text
@@ -44,6 +53,7 @@ docs/ARCHITECTURE.md
 ## Privacy and safety boundaries
 
 - Binds to `127.0.0.1` only.
+- Serves an explicit allowlist of dashboard assets; source files, databases, logs, and screenshots are not available through the dashboard server.
 - Stores metadata, not packet payloads.
 - Active discovery is restricted to the detected private `/24` LAN and is rate-limited to once per minute.
 - `flow_monitor.db` and runtime logs are excluded from Git because they can contain private network metadata.
